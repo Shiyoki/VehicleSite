@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --hero-height: 16rem;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    @apply bg-white;
+    font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+h1{
+    font-size: 1.9375rem;
+}
+
+h2, 
+legend{
+    font-size: 1.375rem;
+    @apply font-semibold
+}
+
+h3{
+    @apply text-2xl;
+}
+
+h4{
+    font-size: 1.25rem;
+    @apply font-semibold;
+}
+
+p{
+    font-size: 1.125rem;
+    @apply font-medium;
+    text-align: justify;
+}
+
+img{
+    max-width: 100%;
+}
+
+.navbar{
+    min-height: 1rem;
+}
+
+.img{
+    @apply object-scale-down;
+}
+
+.footer{
+    background-color: #0277bd;
+    font-size: 0.75rem;
+    @apply py-3 px-8 mt-5;
+    @apply flex justify-center;
+    width: 100%;
+}
+
+.ul{
+    list-style-type: disc;
+}
+
+.ol{
+    list-style-type: decimal;
+}
+
+.ul-li:first-child{
+    @apply my-0;
+    @apply mb-4;
+}
+
+.ul-li,
+.ol-li{
+    @apply my-2;
+}
+
+/*----------------------HERO SECTION----------------------*/
+
+.hero-content{
+    width: 100%;
+    background-image: url("../src/images/herobanner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+.hero-wrapper{
+    width: 95%;
+    @apply mx-auto;
+}
+
+/*.hero-form-card{
+    @apply bg-white rounded-sm;
+    @apply drop-shadow-md;
+}*/
+
+.hero-title{
+    @apply text-white font-bold uppercase text-center mb-3;
+}
+
+.hero-subtitle{
+    @apply bg-white;
+    @apply font-bold text-center py-1;
+    color: #0277bd;
+}
+
+/*.hero-form-card{
+    @apply p-3;
+}*/
+
+.input-group{
+    @apply flex justify-between space-x-2;
+}
+
+/*----------------------DESCRIPTION TEXTS----------------------*/
+
+.description-container{
+    @apply mt-5 mx-auto;
+    width: 95%;
+}
+
+.content-article{
+    @apply mx-5;
+}
+
+.content-article:first-child{
+    @apply mb-5;
+}
+
+.article-title{
+    @apply font-bold text-center mb-3 mt-3;
+    color: #0277bd;
+}
+
+.article-subtitle{
+    @apply font-bold text-left text-gray-700;
+    @apply mt-3 mb-3;
+}
+
+@media (min-width: 240px) {
+
+    /*----------------------HERO SECTION----------------------*/
+    .hero-text-container{
+        @apply my-3;
+    }
+
+    .img-container{
+        width: 20rem;
+        @apply mx-auto;
+    }
+
+    .article-title{
+        @apply mt-5;
+    }
+}
+
+@media (min-width: 750px) {
+    .hero-wrapper{
+        @apply grid grid-cols-2 gap-3;
+    }
+
+    .img-container{
+        width: 23rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /*-------------------------------------*/
+    .hero-wrapper{
+        @apply flex justify-between;
+        width: 90%;
+    }
+
+    .hero-text-container{
+        @apply px-3;
+    }
+
+    /*---------------------------------*/
+    .description-wrapper{
+        @apply grid grid-cols-2 gap-3;
+    }
+
+    .description-container{
+        width: 90%;
+    }
+
+    /*------------------------------------*/
+
+}
+
+
