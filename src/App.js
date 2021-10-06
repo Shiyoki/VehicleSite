@@ -1,16 +1,12 @@
 import Home from "./views/Home";
 import Error404 from "./components/Error404";
 
-import {
-BrowserRouter as HashRouter,
-  Route,
-  Switch
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
     <>
-    <HashRouter>
+    <Router>
       <Switch>
         <Route path="/" exact>
             <Home />
@@ -19,7 +15,7 @@ function App() {
           <Error404 />
         </Route>
       </Switch>
-    </HashRouter>
+    </Router>
     
     </>
   );
