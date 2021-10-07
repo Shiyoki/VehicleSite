@@ -2,8 +2,21 @@ import React, { useRef, useState } from 'react';
 import emailjs from 'emailjs-com';
 import swal from "sweetalert"
 import { isNumber } from 'lodash';
+import { useHistory } from "react-router";
 
 const Hero = (props) => {
+
+    const history = useHistory();
+
+    const alertError =()=>{
+        swal({
+            title: "Error",
+            text: "Datos introducidos incorrectamente",
+            icon: "error",
+            button: "Aceptar",
+            timer: "5000"
+        })
+    }
 
     const form = useRef();
     const [result, showResult] = useState(false)
@@ -21,25 +34,25 @@ const Hero = (props) => {
     const handleYearChange = ({ target: {value} }) => setYear(value) ;
 
     const sendEmail = (e) => {
+
         if(/([0-9])/.test(name)){
-            console.log("Nombre invalido.")
+            alertError();
         }
 
-        if( !(/([0-9])/.test(phone)) || !(/([0-9])/.test(km)) || !(/([0-9])/.test(year)) ) {
-            console.log("error con numero.")
+        else if( !(/([0-9])/.test(phone)) || !(/([0-9])/.test(km)) || !(/([0-9])/.test(year)) ) {
+            alertError();
         }
         
-        if( (name === "") || (brand === "") || (phone === "") || (km === "") || (year === "") ){
-            console.log("error vacio.")
+        else if( (name === "") || (brand === "") || (phone === "") || (km === "") || (year === "") ){
+            alertError();
         } 
 
-        if( (parseInt(km) < 1900) && (parseInt(year) > Date.year) ){
-            console.log("año vehiculo incorrecto.")
+        else if( (parseInt(km) < 1900) && (parseInt(year) > Date.year) ){
+            alertError();
         }
 
-        e.preventDefault();
-    
-        emailjs.sendForm('service_xm3t34j', 'template_22zi2ll', form.current, 'user_xyjmGQwBffOdGd4mFshoM')
+      else{
+        emailjs.sendForm("service_xm3t34j","template_22zi2ll", form.current, 'user_xyjmGQwBffOdGd4mFshoM')
           .then((result) => {
               console.log(result.text);
               swal({
@@ -50,18 +63,14 @@ const Hero = (props) => {
                 timer: "5000"
             })
           }, (error) => {
-            swal({
-                title: "Inserte correctamente los datos",
-                text: "Mensaje enviado con exito",
-                icon: "error",
-                button: "Aceptar",
-                timer: "5000"
-            })
+            console.log(error.text);
           });
-          e.target.reset()
           showResult(true);
+          history.push('/gracias')
       };
-
+      }
+    
+        
     return (
         <div className="hero-container">
             <div className="hero-content">
@@ -73,7 +82,7 @@ const Hero = (props) => {
                         </div>
                     </div>
                     <div classname="hero-card-container">
-                        <form className="card bg-white shadow-lg" ref={form} onSubmit={sendEmail}>
+                        <form className="card bg-white shadow-lg" ref={form} >
                             <fieldset className="card-body p-3">
                                 <legend className="text-gray-700 font-semibold text-center mb-3">Compramos tu coche con reserva</legend>
                                 <div className="input-group mb-3">
@@ -84,7 +93,7 @@ const Hero = (props) => {
                                 <input type="text" placeholder="Kilómetro" className="input input-info input-bordered w-full mb-3" name="kilometro" value={km} onChange={handleKmChange}></input>
                                 <input type="text" placeholder="Año" className="input input-info input-bordered w-full mb-3" name="year" value={year} onChange={handleYearChange}></input>
                                 <div className="flex justify-center">
-                                    <button type="submit" className="btn btn-success hover:bg-green-800" value="Enviar">Enviar</button>
+                                    <a type="submit" className="btn btn-success hover:bg-green-800" value="Enviar" onClick={sendEmail}>Enviar</a>
                                 </div>
                             </fieldset>
                         </form>
